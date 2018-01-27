@@ -1,0 +1,171 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>魔方</title>
+		<script type="text/javascript">
+var anchorPoints= [{x:0,y:30},{x:50, y:5},{x:120,y:25},{x:70, y:50},{x:5, y:100},{x:70, y:125},{x:117, y:96}];
+var colorArray = ["white","blue","green","red","orange","yellow"];
+function xyz2pt(x,y,z,p) {
+
+}
+
+function ap(pi1,pi2,s,i) {
+	var p1 = anchorPoints[pi1], p2 = anchorPoints[pi2],
+		rate = i / s, etar = 1 - i / s;
+
+	return {
+		x:p1.x * etar + p2.x * rate,
+		y:p1.y * etar + p2.y * rate
+	};
+}
+
+function aap(p1,p2,s,i) {
+	var rate = i / s, etar = 1 - i / s;
+
+	return {
+		x:p1.x * etar + p2.x * rate,
+		y:p1.y * etar + p2.y * rate
+	};
+}
+
+function app(plan,jie,x,y) {
+	var p1, p2, p3, p4, p5, p6;
+	var r1,r2,r3,r4;
+	if (plan == 0) {
+		r1 = 1, r2 = 2;
+		r3 = 0, r4 = 3;
+	} else if (plan == 1) {
+		r1 = 0, r2 = 3;
+		r3 = 4, r4 = 5;
+	} else if (plan == 2) {
+		r1 = 3, r2 = 2;
+		r3 = 5, r4 = 6;
+	}
+
+	p1 = ap(r1,r2,jie,x),
+	p2 = ap(r3,r4,jie,x);
+
+	p3 = aap(p1,p2,jie,y),
+	p4 = aap(p1,p2,jie,y+1);
+
+	p1 = ap(r1,r2,jie,x+1),
+	p2 = ap(r3,r4,jie,x+1);		
+
+	p5 = aap(p1,p2,jie,y),
+	p6 = aap(p1,p2,jie,y+1);
+	return [p3,p4,p6,p5];
+}
+
+function go(c,p,m) {
+	if (m) {
+		c.lineTo(p.x,p.y);
+	} else {
+		c.moveTo(p.x,p.y);
+	}
+}
+function goi(c,i,m) {
+	go(c,anchorPoints[i],m);
+}
+function drawCubeBack(ctx) {
+	ctx.beginPath();
+	goi(ctx,0);
+	goi(ctx,1,1);
+	goi(ctx,2,1);
+	goi(ctx,6,1);
+	goi(ctx,5,1);
+	goi(ctx,4,1);
+	goi(ctx,0,1);
+	ctx.fillStyle = "#ccc";
+	ctx.fill();
+	ctx.closePath();
+}
+function drawCube(ctx, options) {
+	var jie = options.jie || 3,
+		p1, p2;
+
+
+	ctx.beginPath();
+	goi(ctx,0);
+	goi(ctx,1,1);
+	goi(ctx,2,1);
+	goi(ctx,3,1);
+	goi(ctx,0,1);
+	goi(ctx,4,1);
+	goi(ctx,5,1);
+	goi(ctx,6,1);
+	goi(ctx,2,1);
+	goi(ctx,3);
+	goi(ctx,5,1);
+	ctx.lineWidth = 2;
+	ctx.stroke();
+	ctx.closePath();
+
+	ctx.beginPath();
+	for (var i = 1; i < jie; ++i) {
+		p1 = ap(1,2,jie,i),
+		p2 = ap(0,3,jie,i);
+		go(ctx,p1);
+		go(ctx,p2,1);
+
+		p1 = ap(0,1,jie,i),
+		p2 = ap(3,2,jie,i);
+		go(ctx,p1);
+		go(ctx,p2,1);
+
+		p1 = ap(0,4,jie,i),
+		p2 = ap(3,5,jie,i);
+		go(ctx,p1);
+		go(ctx,p2,1);
+
+		p1 = ap(0,3,jie,i),
+		p2 = ap(4,5,jie,i);
+		go(ctx,p1);
+		go(ctx,p2,1);
+
+
+		p1 = ap(3,2,jie,i),
+		p2 = ap(5,6,jie,i);
+		go(ctx,p1);
+		go(ctx,p2,1);
+
+		p1 = ap(3,5,jie,i),
+		p2 = ap(2,6,jie,i);
+		go(ctx,p1);
+		go(ctx,p2,1);
+	}
+	ctx.lineWidth = 1;
+	ctx.stroke();
+	ctx.closePath();
+
+	
+}
+
+
+function drawTile(ctx, j,p, x, y, c) {
+	var arr = app(p,j,x,y);
+	ctx.beginPath();
+	go(ctx,arr[3]);
+	for (var i = 0; i < 4; ++i)
+		go(ctx,arr[i],1);
+	ctx.fillStyle = colorArray[c];
+	ctx.fill();
+	ctx.closePath();	
+}
+
+function draw(ctx) {
+	drawCubeBack(ctx);
+	drawTile(ctx, 3,1, 2, 1, 4);
+	drawCube(ctx, {});
+	
+}
+
+function init() {
+	var can = document.getElementById("show");
+	draw(can.getContext("2d"));
+}
+		</script>
+	</head>
+	<body onload="init()">
+		<canvas id="show"></canvas>
+	</body>
+</html>

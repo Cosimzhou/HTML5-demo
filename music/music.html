@@ -1,0 +1,27 @@
+<html>
+<head>
+	<script type="text/javascript">
+	function init() {
+
+
+var can = document.getElementById("canvas");
+var ctx = can.getContext("2d");
+
+var img1 = new Image(), img2 = new Image();
+var rest = 2;
+img1.onload = img2.onload= function(){
+	if(!--rest) {
+		ctx.drawImage(img1, 0, 0, img1.width*3, img1.height*3);
+		ctx.drawImage(img2, 0, 0, img2.width*3, img2.height*3);
+	}
+};
+img1.src ="GClef.svg";
+img2.src = "FClef.svg";
+}
+
+	</script>
+</head>
+<body onload="init();">
+	<canvas id="canvas"></canvas>
+</body>
+</html>

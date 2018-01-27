@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="200"
+   height="200"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.0 r9654"
+   style="display:inline"
+   sodipodi:docname="New document 1">
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="note"
+     style="display:inline">
+    <g
+       transform="matrix(2.2084033,0,0,1.8468318,-422.56928,74.339659)"
+       id="g247"
+       style="fill:#000000;fill-opacity:1">
+      <path
+         inkscape:connector-curvature="0"
+         d="M 233.072,24.112 V 51.52 h -1.248 V 41.248 l -6.672,1.728 V 15.232 h 1.2 v 10.704 l 6.72,-1.824 z m -6.72,6.432 v 7.536 l 5.472,-1.44 v -7.536 l -5.472,1.44 z"
+         id="path249"
+         style="fill:#000000;fill-opacity:1" />
+    </g>
+  </g>
+</svg>
