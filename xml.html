@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<script type="text/javascript">
+/*********************************************************************
+ *
+ *	tssh.js
+ *
+ *	tssh is short for tsushin, which is pronounciation for 
+ *	'communication' in Japanese. We use this to confuse our readers
+ * 	who want hack back.
+ *
+ *********************************************************************/
+var xhrType;
+var xmlhttp;
+// const mapDatUrl="http://192.168.11.174:8090/quantum/string";
+const mapDatUrl="http://localhost:8080/perseus/webmap";
+function initXHR() {
+	xmlhttp=null;
+	if (window.XMLHttpRequest) {// code for all new browsers
+		xhrType= XMLHttpRequest;
+	} else if (window.ActiveXObject) {// code for IE5 and IE6
+		xhrType =ActiveXObject("Microsoft.XMLHTTP");
+	}
+	if (!xhrType) {
+		alert("Your browser does not support XMLHTTP.");
+	}
+}
+function loadXMLData(url,param) {
+	xmlhttp=new xhrType;
+	if (xmlhttp!=null) {
+		xmlhttp.onreadystatechange=xhrStateChange;
+		xmlhttp.open("POST",url,true);
+		xmlhttp.send(param);
+	} else {
+		alert("Your browser does not support XMLHTTP.");
+	}
+}
+function xhrStateChange() {
+	if (xmlhttp.readyState==4) {// 4 = "loaded"
+		if (xmlhttp.status==200) {// 200 = OK
+			// loadXMLData(mapDatUrl,param);
+			alert(xmlhttp.responseText);
+		// ...our code here...
+		} else {
+			// alert("Problem retrieving XML data");
+		}
+	}
+}  
+
+
+		</script>
+	</head>
+	<body onload="loadXMLData(mapDatUrl,null);">
+	</body>
+</html>

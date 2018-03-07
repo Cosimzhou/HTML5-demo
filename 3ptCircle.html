@@ -1,0 +1,102 @@
+<html>
+	<head>
+		<script type="text/javascript">
+function circle(a, b, c, x, o) {
+	var A = b.x - a.x,  B = b.y - a.y,
+		C = c.x - a.x,  D = c.y - a.y;
+	if (A * D - B * C == 0)
+		return false;
+	
+
+	var E = (a.x + b.x)/2, F = (a.y + b.y)/2,
+		G = (a.x + c.x)/2, H = (a.y + c.y)/2; 
+	if (B == 0) {
+		o.x = E;
+		o.y = H - C/D*(E-G); 
+	} else if (D == 0) {
+		o.x = G;
+		o.y = F - A/B*(G-E);
+	} else {
+		o.x = (B*D*(H - F) +B*C*G-A*D*E)/(B*C-A*D);
+		o.y = -A/B*(o.x-E)+ F;
+	}
+	x.value = o.x +Math.sqrt(Math.pow(a.x - o.x, 2) + Math.pow(a.y - o.y, 2));
+	
+	return true;
+}
+
+function circle1(a, b, c, x, o) {
+	var A = b.x - a.x,  B = b.y - a.y,
+		C = c.x - a.x,  D = c.y - a.y;
+	if (A * D - B * C == 0)
+		return false;
+	
+	// Check that bc is a "right turn" from ab.
+	G = 2*(A*(c.y-b.y) - B*(c.x-b.x));
+	if (G == 0) return false;  // Points are co-linear.
+	
+	
+	// Algorithm from O'Rourke 2ed p. 189.
+	E = A*(a.x+b.x) + B*(a.y+b.y);	// the square of length of vector ab
+	F = C*(a.x+c.x) + D*(a.y+c.y);	// the square of length of vector ac
+
+	// // Point o is the center of the circle.
+	o.x = (D*E-B*F)/G;
+	o.y = (A*F-C*E)/G;
+
+	// o.x plus radius equals max x coordinate.
+	x.value = o.x +Math.sqrt(Math.pow(a.x - o.x, 2) + Math.pow(a.y - o.y, 2) );
+	return true;
+}
+
+function draw() {
+var can = document.getElementById("can");
+var ctx = can.getContext("2d");
+
+	var a = {x: Math.random()*800, y: Math.random()*800},
+	b = {x: Math.random()*800, y: Math.random()*800},
+	c = {x: Math.random()*800, y: Math.random()*800};
+
+// var a = {x: 100, y: 100},
+// 	c = {x: 400, y: 150},
+// 	b = {x: 300, y: 300};
+
+	var o = {}, x = {};
+	circle(a, b, c, x, o);
+
+	ctx.fillStyle = 'blue';
+	ctx.beginPath();
+	ctx.arc(o.x,o.y, 10, 0, 2*Math.PI);
+	ctx.fill();
+	ctx.closePath();
+
+	ctx.beginPath();
+	ctx.arc(o.x,o.y, x.value-o.x, 0, 2*Math.PI);
+	ctx.stroke();
+	ctx.closePath();
+
+
+	ctx.fillStyle = 'red';
+	ctx.beginPath();
+	ctx.arc(a.x,a.y, 10, 0, 2*Math.PI);
+	ctx.fill();
+	ctx.closePath();
+
+	ctx.beginPath();
+	ctx.arc(b.x,b.y, 10, 0, 2*Math.PI);
+	ctx.fill();
+	ctx.closePath();
+
+	ctx.beginPath();
+	ctx.arc(c.x,c.y, 10, 0, 2*Math.PI);
+	ctx.fill();
+	ctx.closePath();
+
+	
+}
+		</script>
+	</head>
+	<body style="margin:0" onload="draw();">
+		<canvas id="can" width="800" height="800"></canvas>
+	</body>
+</html>
